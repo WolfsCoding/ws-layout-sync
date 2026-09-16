@@ -1,0 +1,37 @@
+<idea-plugin>
+    <id>dev.boehmer.ws-layout-sync</id>
+    <name>Layout Sync</name>
+    <vendor email="joshuanoel.boehmer@gmail.com">Joshua Boehmer</vendor>
+
+    <description><![CDATA[
+        Keeps the tool window layout identical across every open project window.
+        <p>
+        Moving, reordering, resizing, docking or hiding a tool window bar in one window is applied
+        to all other open windows immediately and remembered for windows opened later.
+        Settings Sync only carries explicitly saved layouts; this plugin syncs the live one.
+        </p>
+        <p>Toggle it via <b>Window | Layouts | Sync Layout Across Windows</b>.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity implementation="dev.boehmer.wslayoutsync.LayoutSyncStartup"/>
+    </extensions>
+
+    <projectListeners>
+        <listener class="dev.boehmer.wslayoutsync.LayoutSyncListener"
+                  topic="com.intellij.openapi.wm.ex.ToolWindowManagerListener"/>
+    </projectListeners>
+
+    <actions>
+        <group id="LayoutSync.Group">
+            <separator/>
+            <action id="LayoutSync.Toggle"
+                    class="dev.boehmer.wslayoutsync.ToggleLayoutSyncAction"
+                    text="Sync Layout Across Windows"
+                    description="Apply tool window layout changes to every open project window"/>
+            <add-to-group group-id="LayoutsGroup" anchor="last"/>
+        </group>
+    </actions>
+</idea-plugin>
