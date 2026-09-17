@@ -41,6 +41,12 @@ The plugin zip ends up in `build/distributions/`. Install it via
 
 `./gradlew runIde` starts a sandboxed WebStorm with the plugin for manual testing.
 
+## Release
+
+Every push to `main` runs the *Release* workflow. It builds the plugin and, if no tag for the
+`pluginVersion` in `gradle.properties` exists yet, tags `v<version>` and publishes a GitHub release
+with the zip attached. Bump `pluginVersion` to cut a new release; pushes without a bump only build.
+
 ## Notes
 
 - The plugin uses `DesktopLayout`, which JetBrains marks as internal API. It is the only way to read or
